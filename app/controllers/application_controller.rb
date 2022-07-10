@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   include ActionController::Cookies
-  include Pundit
+  include Pundit::Authorization
 
   # basic_auth
 end

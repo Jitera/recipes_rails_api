@@ -18,12 +18,17 @@ class User < ApplicationRecord
   # jitera-anchor-dont-touch: validation
 
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP },
-                    length: { maximum: 255, minimum: 0, message: I18n.t('.out_of_range_error') }, presence: true, uniqueness: true
+                    length: { maximum: 255, minimum: 0, message: I18n.t('errors.messages.out_of_range_error') }, presence: true, uniqueness: true
 
   accepts_nested_attributes_for :recipes
 
   def self.associations
     [:recipes]
+  end
+
+  def self.authenticate(email, password)
+    user = User.find_for_authentication(email: email)
+    user&.valid_password?(password) ? user : nil
   end
 
   # jitera-anchor-dont-touch: reset_password

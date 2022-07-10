@@ -45,4 +45,16 @@ class Api::IngredientsController < Api::BaseController
 
     @ingredients = Ingredient.all
   end
+
+  def weight_converter
+    @results = Ingredient.weight_converter(weight_converter_params)
+
+    @error_message = I18n.t('errors.messages.convert_fail') unless @results
+  end
+
+  private
+
+  def weight_converter_params
+    params.permit(:unit_from, :unit_to, :amount_from, :amount_to)
+  end
 end

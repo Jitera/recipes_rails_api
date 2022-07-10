@@ -6,6 +6,7 @@ en:
       recipes: Recipes
       categories: Categories
       ingredients: Ingredients
+      ratings: Ratings
     attributes:
       user:
         id: ID
@@ -45,6 +46,14 @@ en:
         unit: Unit
         amount: Amount
         recipe_id: Recipe ID
+      rating:
+        id: ID
+        created_at: Created at
+        updated_at: Updated at
+        points: Points
+        comments: Comments
+        user_id: User ID
+        recipe_id: Recipe ID
   enums:
     recipe:
       difficulty:
@@ -55,7 +64,7 @@ en:
       unit:
         cup: cup
         teaspoons: teaspoons
-        gram : gram 
+        gram : gram
         kilogram: kilogram
   errors:
     messages:
@@ -63,3 +72,6 @@ en:
       datetime_type: Must be a valid date and time
       in_future: Must be larger than today
       in_past: Must be smaller than today
+      out_of_range_error: The value is out of range
+      search_not_found: Search not found
+      convert_fail: Convert Fail!
