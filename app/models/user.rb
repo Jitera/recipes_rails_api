@@ -36,9 +36,13 @@ class User < ApplicationRecord
     raw
   end
 
+  def after_sign_in_path_for(resource_or_scope)
+    stored_location_for(resource_or_scope)
+  end
+
   class << self
     def timeout_in
-      0.hours
+      1.hours
     end
 
     def password_length
@@ -46,7 +50,7 @@ class User < ApplicationRecord
     end
 
     def reset_password_within
-      0.hours
+      1.hours
     end
   end
 end

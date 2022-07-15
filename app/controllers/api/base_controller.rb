@@ -1,8 +1,7 @@
 module Api
   class BaseController < ActionController::API
     include OauthTokensConcern
-    include ActionController::Cookies
-    include Pundit
+    include Pundit # TODO: Pundit is included but never been used, so no policy have been enforced even though they were defined in app/policies
 
     # =======End include module======
 
@@ -12,6 +11,7 @@ module Api
     rescue_from ActiveRecord::RecordNotUnique, with: :base_render_record_not_unique
     rescue_from Pundit::NotAuthorizedError, with: :base_render_unauthorized_error
 
+    # TODO: this was defined but never really been used anywhere
     def serialize(resource, option = {})
       ActiveModelSerializers::SerializableResource.new(
         resource,
@@ -21,15 +21,18 @@ module Api
 
     def error_response(resource, error)
       {
+        # TODO: should have error_code to indicate what kind of error is returning to client
         success: false,
         full_messages: resource&.errors&.full_messages,
         errors: resource&.errors,
         error_message: error.message,
-        backtrace: error.backtrace
+        backtrace: error.backtrace # TODO: backtrace only on development
       }
     end
 
     private
+
+    # TODO: use error_response that defined above to render consistency error response data format
 
     def base_render_record_not_found(exception)
       render json: { message: exception.message }, status: :not_found

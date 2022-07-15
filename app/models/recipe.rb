@@ -21,8 +21,11 @@ class Recipe < ApplicationRecord
   validates :descriptions, length: { maximum: 65_535, minimum: 0, message: I18n.t('.out_of_range_error') },
                            presence: true
 
+  # TODO: if time is the total number of minutes, there are recipes that require longer than 255 minutes to complete
+  # if time is the total number of hours, there are recipes that require less than 1 hour to complete
   validates :time, length: { maximum: 255, minimum: 0, message: I18n.t('.out_of_range_error') }, presence: true
 
+  # TODO: difficulty must be one of enum value
   validates :difficulty, presence: true
 
   accepts_nested_attributes_for :ingredients

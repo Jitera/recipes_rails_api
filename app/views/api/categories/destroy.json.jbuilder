@@ -29,5 +29,5 @@ if @error_message.blank?
     json.category_id @category.category_id
   end
 else
-  json.error_message @error_message
+  json.error_message @error_message # TODO: Sometime it's error_message, sometime it's error_object, this can be abstracted and handle just in 1 place
 end
