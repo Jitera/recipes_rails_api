@@ -11,7 +11,7 @@ Doorkeeper.configure do
     # raise "Please configure doorkeeper resource_owner_authenticator block located in #{__FILE__}"
     # Put your resource owner authentication logic here.
     # Example implementation:
-		current_user || redirect_to(new_user_session_url)
+    current_user || redirect_to(new_user_session_url)
   end
 
   # resource_owner_from_credentials do |_routes|
