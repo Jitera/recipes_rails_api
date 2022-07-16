@@ -1,6 +1,9 @@
 class Api::IngredientsController < Api::BaseController
   # jitera-anchor-dont-touch: before_action_filter
 
+  # TODO: everyone can create/update ingredients of any recipe even though they are not the owner of that particular recipe,
+  # TODO: missing authorization on actions
+
   # jitera-anchor-dont-touch: actions
   def destroy
     @ingredient = Ingredient.find_by(id: params[:id])
@@ -39,6 +42,7 @@ class Api::IngredientsController < Api::BaseController
   def index
     request = {}
 
+    # TODO: this is unnecessary
     request.merge!('unit' => params.dig(:ingredients, :unit))
     request.merge!('amount' => params.dig(:ingredients, :amount))
     request.merge!('recipe_id' => params.dig(:ingredients, :recipe_id))

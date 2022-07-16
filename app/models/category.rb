@@ -13,6 +13,8 @@ class Category < ApplicationRecord
 
   # jitera-anchor-dont-touch: validation
 
+  # TODO: category's description should be required, because it's the only thing that distinguishes one from another
+  # otherwise you can't tell the different between one category with other
   validates :description, length: { maximum: 65_535, minimum: 0, message: I18n.t('.out_of_range_error') },
                           allow_nil: true
 

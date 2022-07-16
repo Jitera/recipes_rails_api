@@ -26,7 +26,6 @@ if @error_object.blank?
     end
 
     json.description @category.description
-    json.category_id @category.category_id
   end
 else
   json.error_object @error_object # TODO: these should be handled with a global error handler rather than on each individual view

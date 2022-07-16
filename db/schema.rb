@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_27_213230) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_16_144159) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -109,6 +109,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_27_213230) do
     t.bigint "user_id"
     t.bigint "category_id"
     t.index ["category_id"], name: "index_recipes_on_category_id"
+    t.index ["difficulty"], name: "index_recipes_on_difficulty"
+    t.index ["time"], name: "index_recipes_on_time"
+    t.index ["title"], name: "index_recipes_on_title", type: :fulltext
     t.index ["user_id"], name: "index_recipes_on_user_id"
   end
 

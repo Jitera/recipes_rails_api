@@ -1,6 +1,11 @@
 class Api::CategoriesController < Api::BaseController
   # jitera-anchor-dont-touch: before_action_filter
 
+  # TODO: everyone can create/update any category they want,
+  # which does not make sense, since categories should be defined by admin, not just a regular users
+
+  # TODO: missing authorization on actions
+
   # jitera-anchor-dont-touch: actions
   def destroy
     @category = Category.find_by(id: params[:id])
@@ -33,6 +38,7 @@ class Api::CategoriesController < Api::BaseController
   end
 
   def index
+    # TODO: this is unnecessary
     request = {}
     request.merge!('description' => params.dig(:categories, :description))
 

@@ -30,6 +30,14 @@ module Api
       }
     end
 
+    def page
+      params[:page] ||= 1
+    end
+
+    def per_page
+      params[:per_page] ||= 10
+    end
+
     private
 
     # TODO: use error_response that defined above to render consistency error response data format
