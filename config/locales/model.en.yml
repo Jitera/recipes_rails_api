@@ -33,6 +33,13 @@ en:
         difficulty: Difficulty
         category_id: Category ID
         user_id: User ID
+      rating:
+        id: ID
+        created_at: Created at
+        updated_at: Updated at
+        score: Score
+        recipe_id: Recipe ID
+        user_id: User ID
       category:
         id: ID
         created_at: Created at

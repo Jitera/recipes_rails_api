@@ -11,6 +11,10 @@ RSpec.describe Recipe, type: :model do
     it { is_expected.to belong_to(:category) }
 
     it { is_expected.to belong_to(:user) }
+
+    it { is_expected.to have_many(:ratings) }
+
+    it { is_expected.to have_many(:reviewers) }
   end
 
   describe 'Valid subject' do

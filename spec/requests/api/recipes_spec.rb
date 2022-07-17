@@ -493,6 +493,10 @@ RSpec.describe 'api/recipes', type: :request do
       }
     end
 
+    after(:all) do
+      Recipe.destroy_all
+    end
+
     get 'Search recipes' do
       tags 'recipes'
       consumes 'application/json'

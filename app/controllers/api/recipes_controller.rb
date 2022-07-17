@@ -59,7 +59,7 @@ class Api::RecipesController < Api::BaseController
     request.merge!('category_id' => params.dig(:recipes, :category_id))
     request.merge!('user_id' => params.dig(:recipes, :user_id))
 
-    @recipes = Recipe.all
+    @recipes = Recipe.includes(:ingredients).all
   end
 
   def search
@@ -67,7 +67,7 @@ class Api::RecipesController < Api::BaseController
     time_to = params[:time_to].to_i
     difficulties = params[:difficulties]
 
-    @recipes = Recipe.all
+    @recipes = Recipe.includes(:ingredients).all
     @recipes = @recipes.where('MATCH (title) AGAINST (? IN BOOLEAN MODE)', params[:title]) if params[:title].present?
     @recipes = @recipes.where('time >= ?', time_from) if time_from > 0
     @recipes = @recipes.where('time <= ?', time_to) if time_to > 0

@@ -46,6 +46,8 @@ Rails.application.routes.draw do
       collection do
         get :search
       end
+
+      resources :ratings, only: [:index, :show, :create, :update, :destroy]
     end
 
     resources :units, only: [] do
