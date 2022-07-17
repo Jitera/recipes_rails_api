@@ -48,6 +48,12 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :units, only: [] do
+      collection do
+        get :convert
+      end
+    end
+
   end
 
 
