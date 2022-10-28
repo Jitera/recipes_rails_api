@@ -1,5 +1,6 @@
 class Recipe < ApplicationRecord
   include ConstantValidatable
+  include Ratable
 
   # jitera-anchor-dont-touch: relations
 

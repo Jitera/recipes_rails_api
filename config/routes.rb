@@ -43,6 +43,7 @@ Rails.application.routes.draw do
     end
 
     resources :recipes, only: %i[index create show update destroy] do
+      resources :ratings, only: %i[index create]
     end
 
     get '/converters/convert', to: 'converters#convert'
