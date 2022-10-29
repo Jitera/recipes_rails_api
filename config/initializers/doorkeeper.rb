@@ -7,16 +7,19 @@ Doorkeeper.configure do
   access_token_generator '::Doorkeeper::JWT'
 
   # This block will be called to check whether the resource owner is authenticated or not.
-  resource_owner_authenticator do
-    raise "Please configure doorkeeper resource_owner_authenticator block located in #{__FILE__}"
-    # Put your resource owner authentication logic here.
-    # Example implementation:
-    #   User.find_by(id: session[:user_id]) || redirect_to(new_user_session_url)
-  end
+  # resource_owner_authenticator do
+  #   raise "Please configure doorkeeper resource_owner_authenticator block located in #{__FILE__}"
+  #   # Put your resource owner authentication logic here.
+  #   # Example implementation:
+  #   #   User.find_by(id: session[:user_id]) || redirect_to(new_user_session_url)
+  # end
 
   # resource_owner_from_credentials do |_routes|
   # User.authenticate(params[:email], params[:password])
   # end
+  resource_owner_from_credentials do
+    User.authenticate(params[:email], params[:password])
+  end
 
   # If you didn't skip applications controller from Doorkeeper routes in your application routes.rb
   # file then you need to declare this block in order to restrict access to the web interface for
@@ -220,7 +223,7 @@ Doorkeeper.configure do
   # `grant_type` - the grant type of the request (see Doorkeeper::OAuth)
   # `scopes` - the requested scopes (see Doorkeeper::OAuth::Scopes)
   #
-  # use_refresh_token
+  use_refresh_token
 
   # Provide support for an owner to be assigned to each registered application (disabled by default)
   # Optional parameter confirmation: true (default: false) if you want to enforce ownership of
@@ -355,6 +358,7 @@ Doorkeeper.configure do
   #   https://datatracker.ietf.org/doc/html/rfc6819#section-4.4.3
   #
   # grant_flows %w[authorization_code client_credentials]
+  grant_flows %w[password]
 
   # Allows to customize OAuth grant flows that +each+ application support.
   # You can configure a custom block (or use a class respond to `#call`) that must
