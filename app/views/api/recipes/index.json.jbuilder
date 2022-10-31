@@ -1,5 +1,5 @@
-if @recipes.present?
-  json.recipes @recipes do |recipe|
+if @error_object.blank?
+  json.recipes @recipes.map do |recipe|
     json.id recipe.id
     json.created_at recipe.created_at
     json.updated_at recipe.updated_at
@@ -21,5 +21,6 @@ if @recipes.present?
     json.user_id recipe.user_id
   end
 else
-  json.error_message @error_message
+  json.recipes []
+  json.errors @error_object
 end

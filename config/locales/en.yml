@@ -1,6 +1,7 @@
 en:
   authentication_error: Unauthorized
   file_exists_label: File already exists
+  out_of_range_error: Value out of range
   mobile:
     wrong_credentials: Wrong credentials
     user_not_registered: User is not registered

@@ -263,8 +263,6 @@ RSpec.describe 'api/ingredients', type: :request do
 
             'updated_at' => 'datetime',
 
-            'unit' => 'float',
-
             'unit' => 'enum_type',
 
             'amount' => 'float',
