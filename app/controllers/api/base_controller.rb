@@ -3,6 +3,7 @@ module Api
     include OauthTokensConcern
     include ActionController::Cookies
     include Pundit
+    include ResponseHandlerConcern
 
     # =======End include module======
 
@@ -11,23 +12,6 @@ module Api
     rescue_from Exceptions::AuthenticationError, with: :base_render_authentication_error
     rescue_from ActiveRecord::RecordNotUnique, with: :base_render_record_not_unique
     rescue_from Pundit::NotAuthorizedError, with: :base_render_unauthorized_error
-
-    def serialize(resource, option = {})
-      ActiveModelSerializers::SerializableResource.new(
-        resource,
-        option
-      ).serializable_hash.as_json
-    end
-
-    def error_response(resource, error)
-      {
-        success: false,
-        full_messages: resource&.errors&.full_messages,
-        errors: resource&.errors,
-        error_message: error.message,
-        backtrace: error.backtrace
-      }
-    end
 
     private
 
@@ -49,6 +33,14 @@ module Api
 
     def base_render_record_not_unique
       render json: { message: I18n.t('errors.record_not_uniq_error') }, status: :forbidden
+    end
+
+    def without_paging
+      params[:page].blank? || params[:page].to_i.zero? || params[:page].to_i.negative?
+    end
+
+    def fetch_params
+      params.permit(:order_by, :order_direction, :page, :per).to_h.symbolize_keys
     end
   end
 end

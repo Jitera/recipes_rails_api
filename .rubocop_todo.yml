@@ -23,6 +23,10 @@ Lint/RedundantDirGlobSort:
   Exclude:
     - 'spec/rails_helper.rb'
 
+Lint/MissingSuper:
+  Exclude:
+    - 'app/services/recipes/*'
+
 # Offense count: 2
 # Configuration parameters: IgnoredMethods, CountRepeatedAttributes.
 Metrics/AbcSize:
@@ -157,6 +161,10 @@ Style/SingleArgumentDig:
     - 'app/controllers/api/users_reset_password_requests_controller.rb'
     - 'app/controllers/api/users_sessions_controller.rb'
     - 'app/controllers/api/users_verify_reset_password_requests_controller.rb'
+
+Style/ArgumentsForwarding:
+  Exclude:
+    - 'app/services/application_service.rb'
 
 # Offense count: 6
 # This cop supports safe autocorrection (--autocorrect).

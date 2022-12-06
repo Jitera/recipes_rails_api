@@ -27,8 +27,19 @@ class Recipe < ApplicationRecord
 
   accepts_nested_attributes_for :ingredients
 
+  scope :search_by_title, ->(title) { where('title LIKE ?', "%#{title}%") }
+  scope :search_by_difficulty, ->(difficulty) { where(difficulty: difficulty) }
+
   def self.associations
     [:ingredients]
+  end
+
+  def from_time
+    ::Recipes::ConvertTimeToMinutesService.call(time).first
+  end
+
+  def to_time
+    ::Recipes::ConvertTimeToMinutesService.call(time).last
   end
 
   # jitera-anchor-dont-touch: reset_password

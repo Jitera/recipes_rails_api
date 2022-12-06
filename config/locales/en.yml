@@ -7,3 +7,4 @@ en:
   errors:
     unauthorized_error: Unauthorized
     record_not_uniq_error: Record not uniq
+    from_time_must_be_before_to_time: From time must be before to time

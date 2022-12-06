@@ -13,33 +13,33 @@ module ActionDispatch
 end
 
 Rails.application.routes.draw do
-use_doorkeeper
-      mount Rswag::Ui::Engine => '/api-docs'
-      mount Rswag::Api::Engine => '/api-docs'
+  use_doorkeeper
+  mount Rswag::Ui::Engine => '/api-docs'
+  mount Rswag::Api::Engine => '/api-docs'
   get '/health' => 'pages#health_check'
 
   namespace :api do
-put '/users_passwords', to: 'users_passwords#put_users_passwords'
-resources :users_registrations, only: [:create] do
- end
+    put '/users_passwords', to: 'users_passwords#put_users_passwords'
+    resources :users_registrations, only: [:create] do
+    end
 
-resources :users_verify_reset_password_requests, only: [:create] do
- end
+    resources :users_verify_reset_password_requests, only: [:create] do
+    end
 
-resources :users_reset_password_requests, only: [:create] do
- end
+    resources :users_reset_password_requests, only: [:create] do
+    end
 
-resources :users_sessions, only: [:create] do
- end
+    resources :users_sessions, only: [:create] do
+    end
 
-resources :ingredients, only: [:index, :create, :show, :update, :destroy] do
- end
+    resources :ingredients, only: [:index, :create, :show, :update, :destroy] do
+    end
 
-resources :categories, only: [:index, :create, :show, :update, :destroy] do
- end
+    resources :categories, only: [:index, :create, :show, :update, :destroy] do
+    end
 
-resources :recipes, only: [:index, :create, :show, :update, :destroy] do
- end
+    resources :recipes, only: [:index, :create, :show, :update, :destroy] do
+    end
 
   end
 
@@ -47,8 +47,6 @@ resources :recipes, only: [:index, :create, :show, :update, :destroy] do
 
   namespace :dashboard do
     # TODO: customizable table name
-    
-
   end
 
   unless Rails.env.development?

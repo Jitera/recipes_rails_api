@@ -53,6 +53,11 @@ class Api::RecipesController < Api::BaseController
     request.merge!('category_id' => params.dig(:recipes, :category_id))
     request.merge!('user_id' => params.dig(:recipes, :user_id))
 
-    @recipes = Recipe.all
+    recipes = ::Recipes::GatherRecipesService.call(Recipe.all.includes(:ingredients), request)
+    recipes = recipes.fetch_page(fetch_params)
+    return render json: json_with_success(data: recipes, options: { serialize: { each_serializer: RecipeSerializer } }) \
+      if without_paging
+
+    render json: json_with_pagination(data: recipes, custom_serializer: RecipeSerializer)
   end
 end

@@ -1,5 +1,6 @@
 class ApplicationRecord < ActiveRecord::Base
   include ActiveStorage::RetrieveAttachment
+  include FetchPage
 
   self.abstract_class = true
 
