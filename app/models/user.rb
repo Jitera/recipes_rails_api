@@ -11,6 +11,8 @@ class User < ApplicationRecord
 
   has_many :ingredients, through: :recipes
 
+  has_many :votes, dependent: :destroy
+
   # jitera-anchor-dont-touch: enum
 
   # jitera-anchor-dont-touch: file

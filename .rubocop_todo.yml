@@ -26,6 +26,7 @@ Lint/RedundantDirGlobSort:
 Lint/MissingSuper:
   Exclude:
     - 'app/services/recipes/*'
+    - 'app/services/ingredients/*'
 
 # Offense count: 2
 # Configuration parameters: IgnoredMethods, CountRepeatedAttributes.

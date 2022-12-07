@@ -9,6 +9,8 @@ class Recipe < ApplicationRecord
 
   belongs_to :user
 
+  has_many :votes, dependent: :destroy
+
   # jitera-anchor-dont-touch: enum
   enum difficulty: %w[easy normal challenging], _suffix: true
 
@@ -30,6 +32,8 @@ class Recipe < ApplicationRecord
   scope :search_by_title, ->(title) { where('title LIKE ?', "%#{title}%") }
   scope :search_by_difficulty, ->(difficulty) { where(difficulty: difficulty) }
 
+  before_destroy :reset_votes_count, prepend: true
+
   def self.associations
     [:ingredients]
   end
@@ -45,5 +49,11 @@ class Recipe < ApplicationRecord
   # jitera-anchor-dont-touch: reset_password
 
   class << self
+  end
+
+  private
+
+  def reset_votes_count
+    Recipe.reset_counters(id, :votes)
   end
 end
