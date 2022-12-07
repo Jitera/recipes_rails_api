@@ -39,6 +39,8 @@ Rails.application.routes.draw do
     end
 
     resources :recipes, only: [:index, :create, :show, :update, :destroy] do
+      post 'vote', to: 'recipes#vote'
+      delete 'unvote', to: 'recipes#unvote'
     end
 
   end

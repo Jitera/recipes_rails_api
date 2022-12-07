@@ -42,5 +42,9 @@ module Api
     def fetch_params
       params.permit(:order_by, :order_direction, :page, :per).to_h.symbolize_keys
     end
+
+    def with_transaction(&block)
+      ActiveRecord::Base.transaction(&block)
+    end
   end
 end

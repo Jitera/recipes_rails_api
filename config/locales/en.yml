@@ -8,3 +8,14 @@ en:
     unauthorized_error: Unauthorized
     record_not_uniq_error: Record not uniq
     from_time_must_be_before_to_time: From time must be before to time
+    invalid_unit_to_convert: This is an invalid unit to convert, the unit must be kilogram or gram
+  recipes:
+    can_not_vote: You can not votes for this recipe. You are owner this recipe.
+    vote_successfully: You have voted for this recipe successfully.
+    unvote_successfully: You have unvoted for this recipe successfully.
+    update_successfully: You have updated for this recipe successfully.
+    destroy_successfully: You have destroyed for this recipe successfully.
+    create_successfully: You have created for this recipe successfully.
+    not_owner: You are not owner this recipe.
+    not_found: The recipe can not found.
+    voted: has voted for this recipe.

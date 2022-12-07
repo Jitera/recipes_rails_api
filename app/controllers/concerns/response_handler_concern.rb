@@ -4,7 +4,7 @@ module ResponseHandlerConcern
   SUCCESS_STATUS = :success
   ERROR_STATUS   = :fail
 
-  def json_with_error(resource, error)
+  def error_msg_active_record(resource, error)
     {
       status: ERROR_STATUS,
       full_messages: resource&.errors&.full_messages,
@@ -21,6 +21,14 @@ module ResponseHandlerConcern
       status: SUCCESS_STATUS,
       message: options[:message] || message || 'Success',
       data: data ? serialize(data, instance_options).as_json : nil
+    }
+  end
+
+  def json_with_error(message: :fail, errors: nil)
+    {
+      status: ERROR_STATUS,
+      message: message,
+      errors: errors
     }
   end
 

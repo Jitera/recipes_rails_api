@@ -21,7 +21,7 @@ module FetchPage
 
     def execute(collections)
       collections = collections.reorder(@order) if @order_by != 'updated_at'
-      collections.page(@page).per(@per) if @page.to_i.positive? && @per.to_i.positive?
+      collections = collections.page(@page).per(@per) if @page.to_i.positive? && @per.to_i.positive?
       collections
     end
   end
