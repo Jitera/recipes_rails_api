@@ -17,9 +17,8 @@ class Ingredient < ApplicationRecord
   validates :amount,
             numericality: { greater_than: 0.0, less_than: 3.402823466e+38, message: I18n.t('.out_of_range_error') }, presence: true
 
-  def amount_converted
-    ::Ingredients::ConvertWeightService.call(amount, unit)
-  end
+  scope :search_by_unit, ->(unit) { where(unit: unit) }
+  scope :search_by_recipe_id, ->(recipe_id) { where(recipe_id: recipe_id) }
 
   # jitera-anchor-dont-touch: reset_password
 

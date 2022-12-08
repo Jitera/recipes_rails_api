@@ -9,7 +9,8 @@ class Api::RecipesController < Api::BaseController
 
   # jitera-anchor-dont-touch: actions
   def destroy
-    render json: json_with_success(message: I18n.t('recipes.destroy_successfully')), status: :ok if @recipe&.destroy
+    @recipe.destroy
+    render json: json_with_success(message: I18n.t('recipes.destroy_successfully')), status: :ok
   end
 
   def update
@@ -48,6 +49,8 @@ class Api::RecipesController < Api::BaseController
 
   def unvote
     vote = Vote.find_by(user_id: current_user.id, recipe_id: @recipe.id)
+    return render json: json_with_error(message: I18n.t('recipes.unvoted')) unless vote
+
     render json: json_with_success(message: I18n.t('recipes.unvote_successfully')), status: :ok if vote&.destroy
   end
 

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Recipe, type: :model do
   let(:recipe) do
-    build(:recipe)
+    build(:recipe, time: '1 min - 20 mins')
   end
 
   describe 'Assocations' do

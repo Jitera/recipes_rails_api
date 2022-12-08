@@ -14,6 +14,8 @@ module Recipes
     private
 
     def calculate(time)
+      return nil unless time
+
       return time.scan(/\d+/).map(&:to_i).first unless time.include?('hour') || time.include?('hours')
 
       unit_numbers = time.scan(/\d+/).map(&:to_i)

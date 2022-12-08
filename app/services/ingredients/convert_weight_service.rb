@@ -1,4 +1,5 @@
 module Ingredients
+
   class ConvertWeightService < ApplicationService
     def initialize(amount, unit)
       @amount = amount
@@ -8,7 +9,7 @@ module Ingredients
     def call
       invalid_units = Ingredient.units.except(:gram, :kilogram).keys
 
-      raise(I18n.t('errors.invalid_unit_to_convert')) if invalid_units.include?(@unit)
+      return -1 if invalid_units.include?(@unit)
 
       return convert_to_gram if @unit == 'kilogram'
 
@@ -18,13 +19,11 @@ module Ingredients
     private
 
     def convert_to_gram
-      amount = (@amount * 1_000).to_f
-      "#{amount} gram"
+      (@amount * 1_000).to_f
     end
 
     def convert_to_kilogram
-      amount = @amount.to_f / 1_000
-      "#{amount} kilogram"
+      @amount.to_f / 1_000
     end
   end
 end

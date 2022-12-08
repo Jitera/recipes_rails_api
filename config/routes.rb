@@ -33,6 +33,7 @@ Rails.application.routes.draw do
     end
 
     resources :ingredients, only: [:index, :create, :show, :update, :destroy] do
+      get 'convert_weight', to: 'ingredients#convert_weight'
     end
 
     resources :categories, only: [:index, :create, :show, :update, :destroy] do
@@ -41,6 +42,7 @@ Rails.application.routes.draw do
     resources :recipes, only: [:index, :create, :show, :update, :destroy] do
       post 'vote', to: 'recipes#vote'
       delete 'unvote', to: 'recipes#unvote'
+      resources :votes, only: [:index]
     end
 
   end
