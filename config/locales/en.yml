@@ -19,3 +19,23 @@ en:
     not_owner: You are not owner this recipe.
     not_found: The recipe can not found.
     voted: has voted for this recipe.
+    unvoted: You have never voted for this recipe.
+  ingredients:
+    not_found: The ingredient can not found.
+    destroy_successfully: You have destroyed for this ingredient successfully.
+    update_successfully: You have updated for this ingredient successfully.
+    create_successfully: You have created for this ingredient successfully.
+    convert_weight_successfully: "You have converted weight successfully with new unit is: %{unit}"
+  categories:
+    not_found: The category can not found.
+    destroy_successfully: You have destroyed for this category successfully.
+    update_successfully: You have updated for this category successfully.
+    create_successfully: You have created for this category successfully.
+  activerecord:
+    errors:
+      models:
+        recipe:
+          attributes:
+            time:
+              invalid_format: "is invalid. The format will be same %{format_time}."
+              invalid_value: is invalid. The from time must be before the to time.

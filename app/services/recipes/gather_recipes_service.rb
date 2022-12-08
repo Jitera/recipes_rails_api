@@ -6,9 +6,9 @@ module Recipes
     end
 
     def call
-      return @recipes unless @params['search']
-
       search = @params['search']
+      return @recipes unless search
+
       from, to = Recipes::ConvertTimeToMinutesService.call(search)
 
       recipe_ids = recipe_ids_by_time_range(@recipes, from, to)

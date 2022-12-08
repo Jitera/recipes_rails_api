@@ -18,6 +18,8 @@ class Category < ApplicationRecord
 
   accepts_nested_attributes_for :recipes
 
+  scope :search_by_description, ->(description) { where('description LIKE ?', "%#{description}%") }
+
   def self.associations
     [:recipes]
   end

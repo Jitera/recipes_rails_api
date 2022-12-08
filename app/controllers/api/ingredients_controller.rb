@@ -1,48 +1,58 @@
 class Api::IngredientsController < Api::BaseController
   # jitera-anchor-dont-touch: before_action_filter
+  before_action :set_ingredient, only: %w[destroy update show convert_weight]
+  around_action :with_transaction, only: %w[create update destroy]
 
   # jitera-anchor-dont-touch: actions
   def destroy
-    @ingredient = Ingredient.find_by(id: params[:id])
-
-    @error_message = true unless @ingredient&.destroy
+    @ingredient.destroy
+    render json: json_with_success(message: I18n.t('ingredients.destroy_successfully')), status: :ok
   end
 
   def update
-    @ingredient = Ingredient.find_by(id: params[:id])
-
-    request = {}
-    request.merge!('unit' => params.dig(:ingredients, :unit))
-    request.merge!('amount' => params.dig(:ingredients, :amount))
-    request.merge!('recipe_id' => params.dig(:ingredients, :recipe_id))
-
-    @error_object = @ingredient.errors.messages unless @ingredient.update(request)
+    @ingredient.update!(ingredient_params)
+    render json: json_with_success(message: I18n.t('ingredients.update_successfully'),
+                                   data: @ingredient,
+                                   options: { serialize: { serializer: IngredientSerializer } }), status: :ok
   end
 
   def show
-    @ingredient = Ingredient.find_by(id: params[:id])
-    @error_message = true if @ingredient.blank?
+    render json: json_with_success(data: @ingredient, options: { serialize: { serializer: IngredientSerializer } })
   end
 
   def create
-    @ingredient = Ingredient.new
-
-    request = {}
-    request.merge!('unit' => params.dig(:ingredients, :unit))
-    request.merge!('amount' => params.dig(:ingredients, :amount))
-    request.merge!('recipe_id' => params.dig(:ingredients, :recipe_id))
-
-    @ingredient.assign_attributes(request)
-    @error_object = @ingredient.errors.messages unless @ingredient.save
+    @ingredient = Ingredient.create!(ingredient_params)
+    render json: json_with_success(message: I18n.t('ingredients.create_successfully'),
+                                   data: @ingredient,
+                                   options: { serialize: { serializer: IngredientSerializer } }), status: :created
   end
 
   def index
-    request = {}
+    ingredients = ::Ingredients::GatherIngredientsService.call(Ingredient.all.includes(:recipe), params)
+    ingredients = ingredients.fetch_page(fetch_params)
+    return render json: json_with_success(data: ingredients, options: { serialize: { each_serializer: IngredientSerializer } }) \
+      if without_paging
 
-    request.merge!('unit' => params.dig(:ingredients, :unit))
-    request.merge!('amount' => params.dig(:ingredients, :amount))
-    request.merge!('recipe_id' => params.dig(:ingredients, :recipe_id))
+    render json: json_with_pagination(data: ingredients, custom_serializer: IngredientSerializer)
+  end
 
-    @ingredients = Ingredient.all
+  def convert_weight
+    result = ::Ingredients::ConvertWeightService.call(@ingredient.amount, @ingredient.unit)
+    return render json: json_with_error(message: I18n.t('errors.invalid_unit_to_convert')), status: :bad_request \
+      if result.negative?
+
+    unit = @ingredient.gram_unit? ? 'kilogram' : 'gram'
+    render json: json_with_success_without_serialize(message: I18n.t('ingredients.convert_weight_successfully', unit: unit), data: result), status: :ok
+  end
+
+  private
+
+  def set_ingredient
+    @ingredient = Ingredient.find_by(id: params[:id] || params[:ingredient_id])
+    render json: json_with_error(message: I18n.t('ingredients.not_found')), status: :not_found unless @ingredient
+  end
+
+  def ingredient_params
+    params.require(:ingredient).permit(:unit, :amount, :recipe_id)
   end
 end

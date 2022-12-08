@@ -40,6 +40,14 @@ module ResponseHandlerConcern
     }
   end
 
+  def json_with_success_without_serialize(message: :success, data: nil, options: {})
+    {
+      status: SUCCESS_STATUS,
+      message: options[:message] || message || 'Success',
+      data: data
+    }
+  end
+
   private
 
   def serialize(data, option = {})

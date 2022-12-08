@@ -25,6 +25,8 @@ class Recipe < ApplicationRecord
 
   validates :time, length: { maximum: 255, minimum: 0, message: I18n.t('.out_of_range_error') }, presence: true
 
+  validates_with RecipeTimeValidator
+
   validates :difficulty, presence: true
 
   accepts_nested_attributes_for :ingredients
