@@ -1,7 +1,7 @@
 class Api::RecipesController < Api::BaseController
   # jitera-anchor-dont-touch: before_action_filter
-  before_action :doorkeeper_authorize!, only: %w[index show update destroy vote unvote]
-  before_action :current_user_authenticate, only: %w[index show update destroy vote unvote]
+  before_action :doorkeeper_authorize!, only: %w[index show update destroy vote unvote create]
+  before_action :current_user_authenticate, only: %w[index show update destroy vote unvote create]
   before_action :set_recipe, only: %w[show update destroy vote unvote]
   before_action :check_ability_vote, only: %w[vote unvote]
   before_action :check_owner, only: %w[update destroy]

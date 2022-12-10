@@ -8,6 +8,8 @@ RSpec.describe Recipe, type: :model do
   describe 'Assocations' do
     it { is_expected.to have_many(:ingredients) }
 
+    it { is_expected.to have_many(:votes) }
+
     it { is_expected.to belong_to(:category) }
 
     it { is_expected.to belong_to(:user) }
@@ -32,6 +34,11 @@ RSpec.describe Recipe, type: :model do
 
     it 'is invalid max length' do
       recipe.time = 'a' * 256
+      expect(recipe).not_to be_valid
+    end
+
+    it 'is invalid time' do
+      recipe.time = '10 - 20'
       expect(recipe).not_to be_valid
     end
   end

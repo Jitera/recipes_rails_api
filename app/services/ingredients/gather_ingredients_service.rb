@@ -6,10 +6,11 @@ module Ingredients
     end
 
     def call
-      search = @params['search']
-      return @ingredients unless search
+      term = @params['term']
+      return @ingredients unless term
 
-      @ingredients.search_by_unit(search).or(@ingredients.search_by_recipe_id(search))
+      final_result = term[:unit].present? ? @ingredients.search_by_unit(term[:unit]) : @ingredients
+      term[:recipe_id].present? ? final_result.search_by_recipe_id(term[:recipe_id]) : final_result
     end
   end
 end

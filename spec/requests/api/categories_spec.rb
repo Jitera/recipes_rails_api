@@ -19,65 +19,7 @@ RSpec.describe 'api/categories', type: :request do
       }
       response '200', 'delete' do
         examples 'application/json' => {
-          'categories' => {
-            'id' => 'integer',
-
-            'created_at' => 'datetime',
-
-            'updated_at' => 'datetime',
-
-            'recipes' =>
-  [
-    {
-
-      'id' => 'integer',
-
-      'created_at' => 'datetime',
-
-      'updated_at' => 'datetime',
-
-      'title' => 'string',
-
-      'descriptions' => 'text',
-
-      'time' => 'string',
-
-      'difficulty' => 'enum_type',
-
-      'category_id' => 'foreign_key',
-
-      'user_id' => 'foreign_key',
-
-      'ingredients' =>
-  [
-    {
-
-      'id' => 'integer',
-
-      'created_at' => 'datetime',
-
-      'updated_at' => 'datetime',
-
-      'unit' => 'enum_type',
-
-      'amount' => 'float',
-
-      'recipe_id' => 'foreign_key'
-
-    }
-  ]
-
-    }
-  ],
-
-            'description' => 'text',
-
-            'category_id' => 'foreign_key'
-
-          },
-
-          'error_message' => 'string'
-
+          'data' => nil
         }
         let(:params) {}
         let(:id) { create(:category).id }
@@ -97,7 +39,7 @@ RSpec.describe 'api/categories', type: :request do
       parameter name: :params, in: :body, schema: {
         type: :object,
         properties: {
-          categories: {
+          category: {
             type: :object,
             properties: {
               description: {
@@ -111,69 +53,39 @@ RSpec.describe 'api/categories', type: :request do
       }
       response '200', 'update' do
         examples 'application/json' => {
-          'categories' => {
-            'id' => 'integer',
-
-            'created_at' => 'datetime',
-
-            'updated_at' => 'datetime',
-
-            'recipes' =>
-  [
-    {
-
-      'id' => 'integer',
-
-      'created_at' => 'datetime',
-
-      'updated_at' => 'datetime',
-
-      'title' => 'string',
-
-      'descriptions' => 'text',
-
-      'time' => 'string',
-
-      'difficulty' => 'enum_type',
-
-      'category_id' => 'foreign_key',
-
-      'user_id' => 'foreign_key',
-
-      'ingredients' =>
-  [
-    {
-
-      'id' => 'integer',
-
-      'created_at' => 'datetime',
-
-      'updated_at' => 'datetime',
-
-      'unit' => 'enum_type',
-
-      'amount' => 'float',
-
-      'recipe_id' => 'foreign_key'
-
-    }
-  ]
-
-    }
-  ],
-
-            'description' => 'text',
-
-            'category_id' => 'foreign_key'
-
-          },
-
-          'error_object' => {}
+          'data' => { 'id' => 'integer',
+                      'created_at' => 'datetime',
+                      'updated_at' => 'datetime',
+                      'description' => 'text',
+                      'recipes' => [{ 'id' => 'integer',
+                                      'created_at' => 'datetime',
+                                      'updated_at' => 'datetime',
+                                      'title' => 'string',
+                                      'descriptions' => 'text',
+                                      'time' => 'string',
+                                      'difficulty' => 'enum_type',
+                                      'category_id' => 'foreign_key',
+                                      'owner_id' => 'foreign_key',
+                                      'votes_count' => 'integer',
+                                      'ingredients' => [{ 'id' => 'integer',
+                                                          'created_at' => 'datetime',
+                                                          'updated_at' => 'datetime',
+                                                          'unit' => 'enum_type',
+                                                          'amount' => 'float',
+                                                          'recipe_id' => 'foreign_key' }],
+                                      'votes' => [{ 'info' => 'object' }] }] }
 
         }
         let(:id) { create(:category).id }
 
-        let(:params) {}
+        let(:params) do
+          {
+            category: {
+              description: 'This is a new description for category.'
+            }
+          }
+        end
+
         run_test! do |response|
           expect(response.status).to eq(200)
         end
@@ -193,64 +105,27 @@ RSpec.describe 'api/categories', type: :request do
       }
       response '200', 'show' do
         examples 'application/json' => {
-          'categories' => {
-            'id' => 'integer',
-
-            'created_at' => 'datetime',
-
-            'updated_at' => 'datetime',
-
-            'recipes' =>
-  [
-    {
-
-      'id' => 'integer',
-
-      'created_at' => 'datetime',
-
-      'updated_at' => 'datetime',
-
-      'title' => 'string',
-
-      'descriptions' => 'text',
-
-      'time' => 'string',
-
-      'difficulty' => 'enum_type',
-
-      'category_id' => 'foreign_key',
-
-      'user_id' => 'foreign_key',
-
-      'ingredients' =>
-  [
-    {
-
-      'id' => 'integer',
-
-      'created_at' => 'datetime',
-
-      'updated_at' => 'datetime',
-
-      'unit' => 'enum_type',
-
-      'amount' => 'float',
-
-      'recipe_id' => 'foreign_key'
-
-    }
-  ]
-
-    }
-  ],
-
-            'description' => 'text',
-
-            'category_id' => 'foreign_key'
-
-          },
-
-          'error_message' => 'string'
+          'data' => { 'id' => 'integer',
+                      'created_at' => 'datetime',
+                      'updated_at' => 'datetime',
+                      'description' => 'text',
+                      'recipes' => [{ 'id' => 'integer',
+                                      'created_at' => 'datetime',
+                                      'updated_at' => 'datetime',
+                                      'title' => 'string',
+                                      'descriptions' => 'text',
+                                      'time' => 'string',
+                                      'difficulty' => 'enum_type',
+                                      'category_id' => 'foreign_key',
+                                      'owner_id' => 'foreign_key',
+                                      'votes_cont' => 'integer',
+                                      'ingredients' => [{ 'id' => 'integer',
+                                                          'created_at' => 'datetime',
+                                                          'updated_at' => 'datetime',
+                                                          'unit' => 'enum_type',
+                                                          'amount' => 'float',
+                                                          'recipe_id' => 'foreign_key' }],
+                                      'votes' => [{ 'info' => 'object' }] }] }
 
         }
         let(:params) {}
@@ -270,83 +145,49 @@ RSpec.describe 'api/categories', type: :request do
       parameter name: :params, in: :body, schema: {
         type: :object,
         properties: {
-          categories: {
+          category: {
             type: :object,
             properties: {
               description: {
                 type: :text,
                 example: 'text'
               }
-
             }
           }
         }
       }
-      response '200', 'create' do
+      response '201', 'create' do
         examples 'application/json' => {
-          'categories' => {
-            'id' => 'integer',
-
-            'created_at' => 'datetime',
-
-            'updated_at' => 'datetime',
-
-            'recipes' =>
-  [
-    {
-
-      'id' => 'integer',
-
-      'created_at' => 'datetime',
-
-      'updated_at' => 'datetime',
-
-      'title' => 'string',
-
-      'descriptions' => 'text',
-
-      'time' => 'string',
-
-      'difficulty' => 'enum_type',
-
-      'category_id' => 'foreign_key',
-
-      'user_id' => 'foreign_key',
-
-      'ingredients' =>
-  [
-    {
-
-      'id' => 'integer',
-
-      'created_at' => 'datetime',
-
-      'updated_at' => 'datetime',
-
-      'unit' => 'enum_type',
-
-      'amount' => 'float',
-
-      'recipe_id' => 'foreign_key'
-
-    }
-  ]
-
-    }
-  ],
-
-            'description' => 'text',
-
-            'category_id' => 'foreign_key'
-
-          },
-
-          'error_object' => {}
-
+          'data' => { 'id' => 'integer',
+                      'created_at' => 'datetime',
+                      'updated_at' => 'datetime',
+                      'recipes' => [{ 'id' => 'integer',
+                                      'created_at' => 'datetime',
+                                      'updated_at' => 'datetime',
+                                      'title' => 'string',
+                                      'descriptions' => 'text',
+                                      'time' => 'string',
+                                      'difficulty' => 'enum_type',
+                                      'owner_id' => 'foreign_key',
+                                      'votes_count' => 'integer',
+                                      'description' => 'text',
+                                      'ingredients' => [{ 'id' => 'integer',
+                                                          'created_at' => 'datetime',
+                                                          'updated_at' => 'datetime',
+                                                          'unit' => 'enum_type',
+                                                          'amount' => 'float',
+                                                          'recipe_id' => 'foreign_key' }],
+                                      'votes' => [{ 'info' => 'object' }] }] }
         }
-        let(:params) {}
+        let(:params) do
+          {
+            category: {
+              description: 'This is a description of category.'
+            }
+          }
+        end
         run_test! do |response|
-          expect(response.status).to eq(200)
+          expect(response.status).to eq(201)
         end
       end
     end
@@ -359,94 +200,34 @@ RSpec.describe 'api/categories', type: :request do
       parameter name: :params, in: :body, schema: {
         type: :object,
         properties: {
-          categories: {
-            type: :object,
-            properties: {
-              description: {
-                type: :text,
-                example: 'text'
-              }
-
-            }
-          },
-          pagination_page: {
-            type: :pagination_page,
-            example: 'pagination_page'
-          },
-          pagination_limit: {
-            type: :pagination_limit,
-            example: 'pagination_limit'
-          }
         }
       }
       response '200', 'index' do
         examples 'application/json' => {
           'total_pages' => 'integer',
 
-          'categories' =>
-        [
-          {
-
-            'id' => 'integer',
-
-            'created_at' => 'datetime',
-
-            'updated_at' => 'datetime',
-
-            'recipes' =>
-        [
-          {
-
-            'id' => 'integer',
-
-            'created_at' => 'datetime',
-
-            'updated_at' => 'datetime',
-
-            'title' => 'string',
-
-            'descriptions' => 'text',
-
-            'time' => 'string',
-
-            'difficulty' => 'enum_type',
-
-            'category_id' => 'foreign_key',
-
-            'user_id' => 'foreign_key',
-
-            'ingredients' =>
-        [
-          {
-
-            'id' => 'integer',
-
-            'created_at' => 'datetime',
-
-            'updated_at' => 'datetime',
-
-            'unit' => 'enum_type',
-
-            'amount' => 'float',
-
-            'recipe_id' => 'foreign_key'
-
-          }
-        ]
-
-          }
-        ],
-
-            'description' => 'text',
-
-            'category_id' => 'foreign_key'
-
-          }
-        ],
-
-          'error_message' => 'string'
-
-        }
+          'data' => [{ 'id' => 'integer',
+                       'created_at' => 'datetime',
+                       'updated_at' => 'datetime',
+                       'description' => 'text',
+                       'recipes' => [{ 'id' => 'integer',
+                                       'created_at' => 'datetime',
+                                       'updated_at' => 'datetime',
+                                       'title' => 'string',
+                                       'descriptions' => 'text',
+                                       'time' => 'string',
+                                       'difficulty' => 'enum_type',
+                                       'category_id' => 'foreign_key',
+                                       'owner_id' => 'foreign_key',
+                                       'votes_count' => 'integer',
+                                       'ingredients' => [{ 'id' => 'integer',
+                                                           'created_at' => 'datetime',
+                                                           'updated_at' => 'datetime',
+                                                           'unit' => 'enum_type',
+                                                           'amount' => 'float',
+                                                           'recipe_id' => 'foreign_key' }],
+                                       'votes' => [{ 'info' => 'object' }] }] }]
+}
         let(:params) {}
         run_test! do |response|
           expect(response.status).to eq(200)

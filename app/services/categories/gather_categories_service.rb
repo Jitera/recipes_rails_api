@@ -6,10 +6,11 @@ module Categories
     end
 
     def call
-      search = @params['search']
-      return @categories unless search
+      term = @params['term']
+      return @categories unless term
 
-      @categories.search_by_description(search)
+
+      term[:description].present? ? @categories.search_by_description(term[:description]) : @categories
     end
   end
 end

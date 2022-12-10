@@ -2,7 +2,7 @@ require 'swagger_helper'
 
 RSpec.describe 'api/ingredients', type: :request do
   before do
-    create(:ingredient)
+    create(:ingredient, :with_recipe_has_time)
   end
 
   # jitera-hook-for-rswag-example
@@ -19,28 +19,10 @@ RSpec.describe 'api/ingredients', type: :request do
       }
       response '200', 'delete' do
         examples 'application/json' => {
-          'ingredients' => {
-            'id' => 'integer',
-
-            'created_at' => 'datetime',
-
-            'updated_at' => 'datetime',
-
-            'unit' => 'float',
-
-            'unit' => 'enum_type',
-
-            'amount' => 'float',
-
-            'recipe_id' => 'foreign_key'
-
-          },
-
-          'error_message' => 'string'
-
+          'data' => nil
         }
         let(:params) {}
-        let(:id) { create(:ingredient).id }
+        let(:id) { create(:ingredient, :with_recipe_has_time).id }
 
         run_test! do |response|
           expect(response.status).to eq(200)
@@ -57,53 +39,46 @@ RSpec.describe 'api/ingredients', type: :request do
       parameter name: :params, in: :body, schema: {
         type: :object,
         properties: {
-          ingredients: {
+          ingredient: {
             type: :object,
             properties: {
               unit: {
-                type: :float,
-                example: 'float'
+                type: :enum_type,
+                example: 'enum_type'
               },
-
               amount: {
                 type: :float,
                 example: 'float'
               },
-
               recipe_id: {
                 type: :foreign_key,
                 example: 'foreign_key'
               }
-
             }
           }
         }
       }
       response '200', 'update' do
         examples 'application/json' => {
-          'ingredients' => {
-            'id' => 'integer',
-
-            'created_at' => 'datetime',
-
-            'updated_at' => 'datetime',
-
-            'unit' => 'float',
-
-            'unit' => 'enum_type',
-
-            'amount' => 'float',
-
-            'recipe_id' => 'foreign_key'
-
-          },
-
-          'error_object' => {}
-
+          'data' => { 'id' => 'integer',
+                      'created_at' => 'datetime',
+                      'updated_at' => 'datetime',
+                      'unit' => 'enum_type',
+                      'amount' => 'float',
+                      'recipe_id' => 'foreign_key' }
         }
-        let(:id) { create(:ingredient).id }
+        let(:id) { create(:ingredient, :with_recipe_has_time).id }
+        let(:recipe) { create(:recipe, time: '1 min - 10 mins') }
+        let(:params) do
+          {
+            ingredient: {
+              unit: 'gram',
+              amount: 1.1,
+              recipe_id: recipe.id
+            }
+          }
+        end
 
-        let(:params) {}
         run_test! do |response|
           expect(response.status).to eq(200)
         end
@@ -123,28 +98,39 @@ RSpec.describe 'api/ingredients', type: :request do
       }
       response '200', 'show' do
         examples 'application/json' => {
-          'ingredients' => {
-            'id' => 'integer',
-
-            'created_at' => 'datetime',
-
-            'updated_at' => 'datetime',
-
-            'unit' => 'float',
-
-            'unit' => 'enum_type',
-
-            'amount' => 'float',
-
-            'recipe_id' => 'foreign_key'
-
-          },
-
-          'error_message' => 'string'
-
+          'data' => { 'id' => 'integer',
+                      'created_at' => 'datetime',
+                      'updated_at' => 'datetime',
+                      'unit' => 'enum_type',
+                      'amount' => 'float',
+                      'recipe_id' => 'foreign_key' }
         }
         let(:params) {}
-        let(:id) { create(:ingredient).id }
+        let(:id) { create(:ingredient, :with_recipe_has_time).id }
+
+        run_test! do |response|
+          expect(response.status).to eq(200)
+        end
+      end
+    end
+  end
+
+  path '/api/ingredients/{ingredient_id}/convert_weight' do
+    get 'Show ingredients' do
+      tags 'show'
+      consumes 'application/json'
+      parameter name: 'ingredient_id', in: :path, type: 'string', description: 'ingredient_id'
+      parameter name: :params, in: :body, schema: {
+        type: :object,
+        properties: {
+        }
+      }
+      response '200', 'show' do
+        examples 'application/json' => {
+          'message' => I18n.t('ingredients.convert_weight_successfully')
+        }
+        let(:params) {}
+        let(:ingredient_id) { create(:ingredient, :with_recipe_has_time).id }
 
         run_test! do |response|
           expect(response.status).to eq(200)
@@ -160,53 +146,47 @@ RSpec.describe 'api/ingredients', type: :request do
       parameter name: :params, in: :body, schema: {
         type: :object,
         properties: {
-          ingredients: {
+          ingredient: {
             type: :object,
             properties: {
               unit: {
-                type: :float,
-                example: 'float'
+                type: :enum_type,
+                example: 'enum_type'
               },
-
               amount: {
                 type: :float,
                 example: 'float'
               },
-
               recipe_id: {
                 type: :foreign_key,
                 example: 'foreign_key'
               }
-
             }
           }
         }
       }
-      response '200', 'create' do
+      response '201', 'create' do
         examples 'application/json' => {
-          'ingredients' => {
-            'id' => 'integer',
-
-            'created_at' => 'datetime',
-
-            'updated_at' => 'datetime',
-
-            'unit' => 'float',
-
-            'unit' => 'enum_type',
-
-            'amount' => 'float',
-
-            'recipe_id' => 'foreign_key'
-
-          },
-
-          'error_object' => {}
-
-        }
-        let(:params) {}
+          'data' => { 'id' => 'integer',
+                      'created_at' => 'datetime',
+                      'updated_at' => 'datetime',
+                      'unit' => 'float',
+                      'unit' => 'enum_type',
+                      'amount' => 'float',
+                      'recipe_id' => 'foreign_key' }
+}
+        let(:recipe) { create(:recipe, time: '1 min - 10 mins') }
+        let(:params) do
+          {
+            ingredient: {
+              unit: 'gram',
+              amount: 1.1,
+              recipe_id: recipe.id
+            }
+          }
+        end
         run_test! do |response|
-          expect(response.status).to eq(200)
+          expect(response.status).to eq(201)
         end
       end
     end
@@ -219,62 +199,17 @@ RSpec.describe 'api/ingredients', type: :request do
       parameter name: :params, in: :body, schema: {
         type: :object,
         properties: {
-          ingredients: {
-            type: :object,
-            properties: {
-              unit: {
-                type: :float,
-                example: 'float'
-              },
-
-              amount: {
-                type: :float,
-                example: 'float'
-              },
-
-              recipe_id: {
-                type: :foreign_key,
-                example: 'foreign_key'
-              }
-
-            }
-          },
-          pagination_page: {
-            type: :pagination_page,
-            example: 'pagination_page'
-          },
-          pagination_limit: {
-            type: :pagination_limit,
-            example: 'pagination_limit'
-          }
         }
       }
       response '200', 'index' do
         examples 'application/json' => {
           'total_pages' => 'integer',
-
-          'ingredients' =>
-        [
-          {
-
-            'id' => 'integer',
-
-            'created_at' => 'datetime',
-
-            'updated_at' => 'datetime',
-
-            'unit' => 'float',
-
-            'unit' => 'enum_type',
-
-            'amount' => 'float',
-
-            'recipe_id' => 'foreign_key'
-
-          }
-        ],
-
-          'error_message' => 'string'
+          'data' => [{ 'id' => 'integer',
+                       'created_at' => 'datetime',
+                       'updated_at' => 'datetime',
+                       'unit' => 'enum_type',
+                       'amount' => 'float',
+                       'recipe_id' => 'foreign_key' }]
 
         }
         let(:params) {}
