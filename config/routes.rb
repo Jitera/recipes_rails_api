@@ -7,39 +7,43 @@ module ActionDispatch
         routes_path = Rails.root.join('config', 'routes', (@scope[:shallow_prefix]).to_s, "#{routes_name}.rb")
 
         instance_eval(File.read(routes_path))
-     end
+      end
     end
   end
 end
 
 Rails.application.routes.draw do
-use_doorkeeper
-      mount Rswag::Ui::Engine => '/api-docs'
-      mount Rswag::Api::Engine => '/api-docs'
+  use_doorkeeper do
+    skip_controllers :authorizations, :applications, :authorized_applications
+  end
+  mount Rswag::Ui::Engine => '/api-docs'
+  mount Rswag::Api::Engine => '/api-docs'
   get '/health' => 'pages#health_check'
 
   namespace :api do
-put '/users_passwords', to: 'users_passwords#put_users_passwords'
-resources :users_registrations, only: [:create] do
- end
+    # put '/users_passwords', to: 'users_passwords#put_users_passwords'
+    resources :users_registrations, only: [:create] do
+    end
+    #
+    # resources :users_verify_reset_password_requests, only: [:create] do
+    # end
+    #
+    # resources :users_reset_password_requests, only: [:create] do
+    # end
+    #
+    # resources :users_sessions, only: [:create] do
+    # end
 
-resources :users_verify_reset_password_requests, only: [:create] do
- end
+    resources :ingredients, only: [:index, :create, :show, :update, :destroy] do
+    end
+    post '/ingredients/weight_converter', to: 'ingredients#weight_converter'
 
-resources :users_reset_password_requests, only: [:create] do
- end
+    resources :categories, only: [:index, :create, :show, :update, :destroy] do
+    end
 
-resources :users_sessions, only: [:create] do
- end
-
-resources :ingredients, only: [:index, :create, :show, :update, :destroy] do
- end
-
-resources :categories, only: [:index, :create, :show, :update, :destroy] do
- end
-
-resources :recipes, only: [:index, :create, :show, :update, :destroy] do
- end
+    resources :recipes, only: [:index, :create, :show, :update, :destroy] do
+    end
+    post '/recipes/:id/rate', to: 'recipes#rate'
 
   end
 
@@ -47,7 +51,6 @@ resources :recipes, only: [:index, :create, :show, :update, :destroy] do
 
   namespace :dashboard do
     # TODO: customizable table name
-    
 
   end
 

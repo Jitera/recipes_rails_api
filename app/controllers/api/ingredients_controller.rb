@@ -45,4 +45,16 @@ class Api::IngredientsController < Api::BaseController
 
     @ingredients = Ingredient.all
   end
+
+  def weight_converter
+    service = Ingredients::WeightConverter.new(weight_converter_param)
+    service.call
+    @error_message = service.error_messages.first unless service.success?
+    render status: :unprocessable_entity if @error_message
+    @data = service.data
+  end
+
+  def weight_converter_param
+    @weight_converter_param ||= params.permit(:from_unit, :from_amount, :to_unit)
+  end
 end

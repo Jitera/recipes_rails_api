@@ -5,6 +5,8 @@ class Recipe < ApplicationRecord
 
   has_many :ingredients, dependent: :destroy
 
+  has_many :recipe_rates, dependent: :destroy
+
   belongs_to :category
 
   belongs_to :user
@@ -18,10 +20,10 @@ class Recipe < ApplicationRecord
 
   validates :title, length: { maximum: 255, minimum: 0, message: I18n.t('.out_of_range_error') }, presence: true
 
-  validates :descriptions, length: { maximum: 65_535, minimum: 0, message: I18n.t('.out_of_range_error') },
-                           presence: true
+  validates :descriptions, length: { maximum: 65_535, minimum: 0, message: I18n.t('errors.out_of_range_error') },
+            presence: true
 
-  validates :time, length: { maximum: 255, minimum: 0, message: I18n.t('.out_of_range_error') }, presence: true
+  validates :time, length: { maximum: 255, minimum: 0, message: I18n.t('errors.out_of_range_error') }, presence: true
 
   validates :difficulty, presence: true
 

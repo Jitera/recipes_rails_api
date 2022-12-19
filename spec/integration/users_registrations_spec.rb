@@ -23,9 +23,6 @@ describe 'Sign up user by email API' do
           user: {
             id: user.id,
             email: user.email,
-            password: user.password,
-            phone: nil,
-            name: nil,
             created_at: '2021-12-02T16:55:50.696+09:00',
             updated_at: '2021-12-02T16:55:50.696+09:00'
           }
@@ -44,9 +41,9 @@ describe 'Sign up user by email API' do
         end
       end
 
-      response '200', 'Cannot register' do
+      response '422', 'Cannot register' do
         examples 'application/json' => {
-          error_message: I18n.t('email_login.failed_to_sign_up')
+          error_message: I18n.t('errors.email_login.failed_to_sign_up')
         }
 
         let(:owner_fields) do
@@ -59,7 +56,7 @@ describe 'Sign up user by email API' do
         run_test! do |response|
           data = JSON.parse(response.body)
 
-          expect(data['error_message']).to eq(I18n.t('email_login.failed_to_sign_up'))
+          expect(data['error_message']).to eq(I18n.t('errors.email_login.failed_to_sign_up'))
         end
       end
     end

@@ -18,7 +18,7 @@ class User < ApplicationRecord
   # jitera-anchor-dont-touch: validation
 
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP },
-                    length: { maximum: 255, minimum: 0, message: I18n.t('.out_of_range_error') }, presence: true, uniqueness: true
+            length: { maximum: 255, minimum: 0, message: I18n.t('errors.out_of_range_error') }, presence: true, uniqueness: true
 
   accepts_nested_attributes_for :recipes
 
@@ -30,7 +30,7 @@ class User < ApplicationRecord
   def generate_reset_password_token
     raw, enc = Devise.token_generator.generate(self.class, :reset_password_token)
 
-    self.reset_password_token   = enc
+    self.reset_password_token = enc
     self.reset_password_sent_at = Time.now.utc
     save(validate: false)
     raw
@@ -48,5 +48,11 @@ class User < ApplicationRecord
     def reset_password_within
       0.hours
     end
+
+    def authenticate(email, password)
+      user = User.find_for_authentication(email: email)
+      user&.valid_password?(password) ? user : nil
+    end
+
   end
 end

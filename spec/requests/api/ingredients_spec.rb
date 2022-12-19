@@ -254,30 +254,63 @@ RSpec.describe 'api/ingredients', type: :request do
           'total_pages' => 'integer',
 
           'ingredients' =>
-        [
-          {
+            [
+              {
 
-            'id' => 'integer',
+                'id' => 'integer',
 
-            'created_at' => 'datetime',
+                'created_at' => 'datetime',
 
-            'updated_at' => 'datetime',
+                'updated_at' => 'datetime',
 
-            'unit' => 'float',
+                'unit' => 'float',
 
-            'unit' => 'enum_type',
+                'unit' => 'enum_type',
 
-            'amount' => 'float',
+                'amount' => 'float',
 
-            'recipe_id' => 'foreign_key'
+                'recipe_id' => 'foreign_key'
 
-          }
-        ],
+              }
+            ],
 
           'error_message' => 'string'
 
         }
         let(:params) {}
+        run_test! do |response|
+          expect(response.status).to eq(200)
+        end
+      end
+    end
+  end
+
+  path '/api/ingredients/weight_converter' do
+    post 'Weight Converter' do
+      tags 'weight_converter'
+      consumes 'application/json'
+      parameter name: :params, in: :body, schema: {
+        type: :object,
+        properties: {
+          from_unit: { type: :string, example: 'gram' },
+          to_unit: { type: :string, example: 'kilogram' },
+          from_amount: { type: :float, example: 100.0 }
+        }
+      }
+      response '200', 'weight_converter' do
+        examples 'application/json' => {
+          'from_unit' => 'string',
+          'to_unit' => 'string',
+          'from_amount' => 'float',
+          'to_amount' => 'float'
+        }
+        let(:params) do
+          {
+            from_unit: 'gram',
+            to_unit: 'kilogram',
+            from_amount: 100.0
+          }
+        end
         run_test! do |response|
           expect(response.status).to eq(200)
         end

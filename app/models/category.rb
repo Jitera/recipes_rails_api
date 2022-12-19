@@ -13,7 +13,7 @@ class Category < ApplicationRecord
 
   # jitera-anchor-dont-touch: validation
 
-  validates :description, length: { maximum: 65_535, minimum: 0, message: I18n.t('.out_of_range_error') },
+  validates :description, length: { maximum: 65_535, minimum: 0, message: I18n.t('errors.out_of_range_error') },
                           allow_nil: true
 
   accepts_nested_attributes_for :recipes

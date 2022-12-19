@@ -27,48 +27,48 @@ RSpec.describe 'api/categories', type: :request do
             'updated_at' => 'datetime',
 
             'recipes' =>
-  [
-    {
+              [
+                {
 
-      'id' => 'integer',
+                  'id' => 'integer',
 
-      'created_at' => 'datetime',
+                  'created_at' => 'datetime',
 
-      'updated_at' => 'datetime',
+                  'updated_at' => 'datetime',
 
-      'title' => 'string',
+                  'title' => 'string',
 
-      'descriptions' => 'text',
+                  'descriptions' => 'text',
 
-      'time' => 'string',
+                  'time' => 'string',
 
-      'difficulty' => 'enum_type',
+                  'difficulty' => 'enum_type',
 
-      'category_id' => 'foreign_key',
+                  'category_id' => 'foreign_key',
 
-      'user_id' => 'foreign_key',
+                  'user_id' => 'foreign_key',
 
-      'ingredients' =>
-  [
-    {
+                  'ingredients' =>
+                    [
+                      {
 
-      'id' => 'integer',
+                        'id' => 'integer',
 
-      'created_at' => 'datetime',
+                        'created_at' => 'datetime',
 
-      'updated_at' => 'datetime',
+                        'updated_at' => 'datetime',
 
-      'unit' => 'enum_type',
+                        'unit' => 'enum_type',
 
-      'amount' => 'float',
+                        'amount' => 'float',
 
-      'recipe_id' => 'foreign_key'
+                        'recipe_id' => 'foreign_key'
 
-    }
-  ]
+                      }
+                    ]
 
-    }
-  ],
+                }
+              ],
 
             'description' => 'text',
 
@@ -119,48 +119,48 @@ RSpec.describe 'api/categories', type: :request do
             'updated_at' => 'datetime',
 
             'recipes' =>
-  [
-    {
+              [
+                {
 
-      'id' => 'integer',
+                  'id' => 'integer',
 
-      'created_at' => 'datetime',
+                  'created_at' => 'datetime',
 
-      'updated_at' => 'datetime',
+                  'updated_at' => 'datetime',
 
-      'title' => 'string',
+                  'title' => 'string',
 
-      'descriptions' => 'text',
+                  'descriptions' => 'text',
 
-      'time' => 'string',
+                  'time' => 'string',
 
-      'difficulty' => 'enum_type',
+                  'difficulty' => 'enum_type',
 
-      'category_id' => 'foreign_key',
+                  'category_id' => 'foreign_key',
 
-      'user_id' => 'foreign_key',
+                  'user_id' => 'foreign_key',
 
-      'ingredients' =>
-  [
-    {
+                  'ingredients' =>
+                    [
+                      {
 
-      'id' => 'integer',
+                        'id' => 'integer',
 
-      'created_at' => 'datetime',
+                        'created_at' => 'datetime',
 
-      'updated_at' => 'datetime',
+                        'updated_at' => 'datetime',
 
-      'unit' => 'enum_type',
+                        'unit' => 'enum_type',
 
-      'amount' => 'float',
+                        'amount' => 'float',
 
-      'recipe_id' => 'foreign_key'
+                        'recipe_id' => 'foreign_key'
 
-    }
-  ]
+                      }
+                    ]
 
-    }
-  ],
+                }
+              ],
 
             'description' => 'text',
 
@@ -201,48 +201,48 @@ RSpec.describe 'api/categories', type: :request do
             'updated_at' => 'datetime',
 
             'recipes' =>
-  [
-    {
+              [
+                {
 
-      'id' => 'integer',
+                  'id' => 'integer',
 
-      'created_at' => 'datetime',
+                  'created_at' => 'datetime',
 
-      'updated_at' => 'datetime',
+                  'updated_at' => 'datetime',
 
-      'title' => 'string',
+                  'title' => 'string',
 
-      'descriptions' => 'text',
+                  'descriptions' => 'text',
 
-      'time' => 'string',
+                  'time' => 'string',
 
-      'difficulty' => 'enum_type',
+                  'difficulty' => 'enum_type',
 
-      'category_id' => 'foreign_key',
+                  'category_id' => 'foreign_key',
 
-      'user_id' => 'foreign_key',
+                  'user_id' => 'foreign_key',
 
-      'ingredients' =>
-  [
-    {
+                  'ingredients' =>
+                    [
+                      {
 
-      'id' => 'integer',
+                        'id' => 'integer',
 
-      'created_at' => 'datetime',
+                        'created_at' => 'datetime',
 
-      'updated_at' => 'datetime',
+                        'updated_at' => 'datetime',
 
-      'unit' => 'enum_type',
+                        'unit' => 'enum_type',
 
-      'amount' => 'float',
+                        'amount' => 'float',
 
-      'recipe_id' => 'foreign_key'
+                        'recipe_id' => 'foreign_key'
 
-    }
-  ]
+                      }
+                    ]
 
-    }
-  ],
+                }
+              ],
 
             'description' => 'text',
 
@@ -292,48 +292,48 @@ RSpec.describe 'api/categories', type: :request do
             'updated_at' => 'datetime',
 
             'recipes' =>
-  [
-    {
+              [
+                {
 
-      'id' => 'integer',
+                  'id' => 'integer',
 
-      'created_at' => 'datetime',
+                  'created_at' => 'datetime',
 
-      'updated_at' => 'datetime',
+                  'updated_at' => 'datetime',
 
-      'title' => 'string',
+                  'title' => 'string',
 
-      'descriptions' => 'text',
+                  'descriptions' => 'text',
 
-      'time' => 'string',
+                  'time' => 'string',
 
-      'difficulty' => 'enum_type',
+                  'difficulty' => 'enum_type',
 
-      'category_id' => 'foreign_key',
+                  'category_id' => 'foreign_key',
 
-      'user_id' => 'foreign_key',
+                  'user_id' => 'foreign_key',
 
-      'ingredients' =>
-  [
-    {
+                  'ingredients' =>
+                    [
+                      {
 
-      'id' => 'integer',
+                        'id' => 'integer',
 
-      'created_at' => 'datetime',
+                        'created_at' => 'datetime',
 
-      'updated_at' => 'datetime',
+                        'updated_at' => 'datetime',
 
-      'unit' => 'enum_type',
+                        'unit' => 'enum_type',
 
-      'amount' => 'float',
+                        'amount' => 'float',
 
-      'recipe_id' => 'foreign_key'
+                        'recipe_id' => 'foreign_key'
 
-    }
-  ]
+                      }
+                    ]
 
-    }
-  ],
+                }
+              ],
 
             'description' => 'text',
 
@@ -384,65 +384,65 @@ RSpec.describe 'api/categories', type: :request do
           'total_pages' => 'integer',
 
           'categories' =>
-        [
-          {
+            [
+              {
 
-            'id' => 'integer',
+                'id' => 'integer',
 
-            'created_at' => 'datetime',
+                'created_at' => 'datetime',
 
-            'updated_at' => 'datetime',
+                'updated_at' => 'datetime',
 
-            'recipes' =>
-        [
-          {
+                'recipes' =>
+                  [
+                    {
 
-            'id' => 'integer',
+                      'id' => 'integer',
 
-            'created_at' => 'datetime',
+                      'created_at' => 'datetime',
 
-            'updated_at' => 'datetime',
+                      'updated_at' => 'datetime',
 
-            'title' => 'string',
+                      'title' => 'string',
 
-            'descriptions' => 'text',
+                      'descriptions' => 'text',
 
-            'time' => 'string',
+                      'time' => 'string',
 
-            'difficulty' => 'enum_type',
+                      'difficulty' => 'enum_type',
 
-            'category_id' => 'foreign_key',
+                      'category_id' => 'foreign_key',
 
-            'user_id' => 'foreign_key',
+                      'user_id' => 'foreign_key',
 
-            'ingredients' =>
-        [
-          {
+                      'ingredients' =>
+                        [
+                          {
 
-            'id' => 'integer',
+                            'id' => 'integer',
 
-            'created_at' => 'datetime',
+                            'created_at' => 'datetime',
 
-            'updated_at' => 'datetime',
+                            'updated_at' => 'datetime',
 
-            'unit' => 'enum_type',
+                            'unit' => 'enum_type',
 
-            'amount' => 'float',
+                            'amount' => 'float',
 
-            'recipe_id' => 'foreign_key'
+                            'recipe_id' => 'foreign_key'
 
-          }
-        ]
+                          }
+                        ]
 
-          }
-        ],
+                    }
+                  ],
 
-            'description' => 'text',
+                'description' => 'text',
 
-            'category_id' => 'foreign_key'
+                'category_id' => 'foreign_key'
 
-          }
-        ],
+              }
+            ],
 
           'error_message' => 'string'
 

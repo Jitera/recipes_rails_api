@@ -7,3 +7,11 @@ en:
   errors:
     unauthorized_error: Unauthorized
     record_not_uniq_error: Record not uniq
+    out_of_range_error: Out of range
+    email_login:
+      failed_to_sign_up: 'failed to sign up'
+    ingredients:
+      missing_params_to_convert: 'missing param to convert'
+      unsupported_unit: 'unsupported unit'
+    recipes:
+      missing_point_in_params: 'missing point in params'
