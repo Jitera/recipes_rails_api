@@ -12,7 +12,7 @@ gem 'aws-sdk-s3', require: false
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'cocoon'
 gem 'multi_json'
-gem 'rswag', '~> 2.5.1'
+gem 'rswag', '~> 2.10.1'
 # jitera-hook-for-devise
 gem 'devise'
 gem 'devise-i18n'
